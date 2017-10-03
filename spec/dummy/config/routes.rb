@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-
-  mount Simpledocupload::Engine => "/simpledocupload"
+  mount Simpledocupload::Engine => "/"
+  root to: 'documents#index'
 end

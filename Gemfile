@@ -2,6 +2,13 @@ source "http://rubygems.org"
 
 gemspec
 
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'SimpleCSVUploder'
+
+gem 'jquery-ui-rails'
+gem 'jquery-fileupload-rails'
+gem 'toastr-rails'
+
 group :development, :test do
 
   # You need these

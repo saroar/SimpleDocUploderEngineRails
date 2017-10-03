@@ -7,7 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <%= link_to 'Home', root_url %>
+  <%= link_to 'Add New Document', simpledocupload.new_document_path %>
 <%= yield %>
 
 </body>
