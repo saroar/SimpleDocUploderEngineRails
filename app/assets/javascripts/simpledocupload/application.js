@@ -10,12 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require bootstrap-sprockets
+//= require toastr
 //= require_tree .
-
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 
 $(document).ready(function() {
-
-
   toastr.options = {
        "closeButton": false,
        "debug": false,
@@ -30,5 +32,4 @@ $(document).ready(function() {
        "showMethod": "fadeIn",
        "hideMethod": "fadeOut"
    }
-
  });

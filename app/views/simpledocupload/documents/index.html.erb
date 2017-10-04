@@ -1,0 +1,85 @@
+<h1>CSV File Upload in Rails </h1>
+
+<h2>Listing documents</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>File Name</th>
+      <th>Date</th>
+      <th>Download</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <% @documents.each_with_index do |document, idx| %>
+      <tr>
+        <th scope="row"><%= idx + 1 %></th>
+        <td><%= document.filename%></td>
+        <th><%= document.created_at.strftime('%D  %R') %></th>
+        <th><%= button_to 'Download', document, method: :get, class: 'btn btn-success'%></th>
+        <th><%= button_to 'Destroy',  document, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %></th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= form_for Simpledocupload::Document.new, :html => { :multipart => true, :id => "fileupload" } do |f| %>
+
+  <div class="image-upload-wrap">
+    <%= f.file_field :file, multiple: true, name: "document[file]", class: "file-upload-input" %>
+    <div class="drag-text">
+      <h3>Drag and drop a file or select add CSV</h3>
+    </div>
+  </div>
+<% end %>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+  return $('#fileupload').fileupload({
+    dataType: "script",
+    add: function(e, data) {
+      var file, types;
+      types = /(\.|\/)(docx|xml|mbp|csv)$/i;
+      fileSize = 1048576;
+      file = data.files[0];
+      console.log(e, data)
+
+      if (file.size < fileSize) {
+        try {
+          if (types.test(file.type) || types.test(file.name)) {
+            data.context = $(tmpl("template-upload", file));
+            $('#fileupload').append(data.context);
+            return data.submit();
+          } else {
+            return toastr.warning(file.name, 'CSV DOCX XML MBP File only!')
+          }
+        } catch(e) {
+          return toastr.error(e);
+        }
+      } else {
+        return toastr.warning(file.size, 'File size cant be more then 1MB!')
+      }
+    },
+    progress: function(e, data) {
+      var progress;
+      if (data.context) {
+        progress = parseInt(data.loaded / data.total * 100, 10);
+        return data.context.find('.bar').css('width', progress + '%');
+      }
+    }
+  });
+});
+</script>

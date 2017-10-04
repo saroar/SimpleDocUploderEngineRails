@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003204912) do
+ActiveRecord::Schema.define(version: 20171004080843) do
 
   create_table "simpledocupload_documents", force: :cascade do |t|
     t.string   "filename"
-    t.string   "content_ftype"
-    t.binary   "file_type"
+    t.string   "content_type"
+    t.binary   "file_contents"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end

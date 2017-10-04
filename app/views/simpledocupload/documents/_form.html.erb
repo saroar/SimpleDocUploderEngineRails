@@ -1,0 +1,18 @@
+<%= form_for Document.new do |f| %>
+  <%= f.label :file, "Upload paintings:" %>
+  <%= f.file_field :file, multiple: true, name: "painting[image]" %>
+  <br>
+  <div class="actions">
+    <%= f.submit 'Start', id:'fileUpload', data: { disable_with: 'Uploading' } %>
+  </div>
+<% end %>
+
+<br>
+<br>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>
